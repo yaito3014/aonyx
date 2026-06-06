@@ -1,7 +1,6 @@
 #pragma once
 
 #include <memory>
-#include <boost/asio/ip/tcp.hpp>
 #include <aonyx/http/router.hpp>
 
 namespace aonyx
