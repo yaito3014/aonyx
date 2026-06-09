@@ -1,2 +1,6 @@
 # aonyx
-aonyx is brand new web framework for C++ !!
+aonyx is a brand new web framework for C++ !!
+
+## requires
+C++23
+boost
