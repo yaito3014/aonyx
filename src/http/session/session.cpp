@@ -25,7 +25,6 @@ void session::read()
 
 void session::handle_request()
 {
-    // TODO
     const auto req = aonyx::impl::http::helper::request::convert(req_);
     auto res = std::make_shared<boost::beast::http::response<boost::beast::http::string_body>>(
         aonyx::impl::http::helper::response::convert(router_.route(req)));

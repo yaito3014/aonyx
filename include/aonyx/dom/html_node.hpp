@@ -4,6 +4,7 @@
 #include <string_view>
 #include <vector>
 #include <type_traits>
+#include <aonyx/util/concepts.hpp>
 #include <aonyx/dom/attribute.hpp>
 
 namespace aonyx
@@ -20,7 +21,7 @@ namespace aonyx
             constexpr html_node(const std::string_view tag_name) : tag_name(tag_name) {}
 
             template <class... Children>
-                requires(std::same_as<Children, html_node> && ...)
+                requires(util::like<Children, html_node> && ...)
             html_node &operator()(Children &&...child);
 
             html_node &operator()(const std::string_view text_content);

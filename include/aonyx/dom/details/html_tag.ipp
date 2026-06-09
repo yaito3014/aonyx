@@ -7,7 +7,7 @@ namespace aonyx
     namespace dom
     {
         template <class... Attrs>
-            requires(std::same_as<Attrs, attribute> && ...)
+            requires(util::like<Attrs, attribute> && ...)
         html_node html_tag::operator()(Attrs &&...attrs) const
         {
             html_node node{tag_name};
@@ -16,7 +16,7 @@ namespace aonyx
         }
 
         template <class... Children>
-            requires(std::same_as<Children, html_node> && ...)
+            requires(util::like<Children, html_node> && ...)
         html_node html_tag::operator()(Children &&...children) const
         {
             html_node node{tag_name};
