@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost CONFIG REQUIRED COMPONENTS system)
 
 add_library(aonyx
     src/dom/html_node/html_node.cpp
@@ -37,7 +37,7 @@ target_include_directories(aonyx
 )
 
 target_link_libraries(aonyx
-    PUBLIC
+    PRIVATE
         Boost::system
 )
 
