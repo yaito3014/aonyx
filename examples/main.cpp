@@ -14,7 +14,7 @@ html_node hoge()
         div_("c"));
 }
 
-aonyx::dom::html_node top(const aonyx::http::request &req)
+void top(const aonyx::http::request &req, aonyx::http::response &res)
 {
     auto node =
         html(attribute{"lang", "en"})(
@@ -24,7 +24,9 @@ aonyx::dom::html_node top(const aonyx::http::request &req)
                     span("Hello, World!")),
                 hoge()));
 
-    return node;
+    res.body = node.to_string();
+    res.status = 200;
+    res.headers["Content-Type"] = "text/html";
 }
 
 int main()
