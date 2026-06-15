@@ -31,15 +31,18 @@ namespace aonyx
                 struct node_t
                 {
                     std::string segment;
-                    util::inner_handler_t handler;
+                    bool is_wildcard = false;
+
                     std::vector<std::shared_ptr<node_t>> children;
+
+                    util::inner_handler_t handler;
                 };
 
                 route_trie() : root_(std::make_shared<node_t>()) {}
                 ~route_trie() = default;
 
                 void add(const std::string_view path, util::inner_handler_t &&handler);
-                util::inner_handler_t find(const std::string_view path) const;
+                util::inner_handler_t find(const std::string_view path, util::inner_handler_params_t &params) const;
 
             private:
                 std::shared_ptr<node_t> root_;

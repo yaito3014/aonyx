@@ -10,7 +10,8 @@ namespace aonyx
         {
             if (req.method == method::get)
             {
-                auto handler = trie_.find(req.path);
+                util::inner_handler_params_t params;
+                auto handler = trie_.find(req.path, params);
 
                 if (not handler)
                 {
@@ -22,7 +23,7 @@ namespace aonyx
                     return;
                 }
 
-                handler(req, res, {});
+                handler(req, res, params);
 
                 return;
             }
@@ -44,13 +45,25 @@ namespace aonyx
                 if (i++ == 0)
                     continue;
                 auto segment = std::string(sv.begin(), sv.end());
+                bool is_wildcard = (segment == "{}");
 
-                auto result = std::find_if(node->children.begin(), node->children.end(), [&segment](std::shared_ptr<node_t> node)
-                                           { return node->segment == segment; });
+                auto result = std::find_if(
+                    node->children.begin(),
+                    node->children.end(),
+                    [&](const std::shared_ptr<node_t> &child)
+                    {
+                        if (is_wildcard)
+                            return child->is_wildcard;
+
+                        return !child->is_wildcard &&
+                               child->segment == segment;
+                    });
+
                 if (result == node->children.end())
                 {
                     auto new_node = std::make_shared<node_t>();
                     new_node->segment = segment;
+                    new_node->is_wildcard = is_wildcard;
                     node->children.push_back(new_node);
 
                     node = new_node;
@@ -63,9 +76,11 @@ namespace aonyx
             node->handler = std::forward<util::inner_handler_t>(handler);
         }
 
-        util::inner_handler_t router::route_trie::find(std::string_view path) const
+        util::inner_handler_t router::route_trie::find(std::string_view path, util::inner_handler_params_t &params) const
         {
             using namespace std::literals;
+
+            params.clear();
 
             auto node = root_;
 
@@ -76,20 +91,39 @@ namespace aonyx
 
                 auto segment = std::string(sv.begin(), sv.end());
 
+                // 固定パスを優先
                 auto it = std::find_if(
                     node->children.begin(),
                     node->children.end(),
                     [&segment](const std::shared_ptr<node_t> &child)
                     {
-                        return child->segment == segment;
+                        return !child->is_wildcard &&
+                               child->segment == segment;
                     });
 
-                if (it == node->children.end())
+                if (it != node->children.end())
                 {
-                    return {};
+                    node = *it;
+                    continue;
                 }
 
-                node = *it;
+                // {} を探す
+                auto wildcard_it = std::find_if(
+                    node->children.begin(),
+                    node->children.end(),
+                    [](const std::shared_ptr<node_t> &child)
+                    {
+                        return child->is_wildcard;
+                    });
+
+                if (wildcard_it != node->children.end())
+                {
+                    params.push_back(segment);
+                    node = *wildcard_it;
+                    continue;
+                }
+
+                return {};
             }
 
             return node->handler;

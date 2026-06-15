@@ -24,8 +24,6 @@ add_library(aonyx
     src/http/server/server_impl.cpp
 
     src/http/session/session.cpp
-
-    src/wrapper/boost/error_code/error_code.cpp
 )
 
 target_include_directories(aonyx

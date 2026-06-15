@@ -29,10 +29,22 @@ void top(const aonyx::http::request &req, aonyx::http::response &res)
     res.headers["Content-Type"] = "text/html";
 }
 
+void user_prof(const aonyx::http::request &req, aonyx::http::response &res, int id)
+{
+    res.body = aonyx::dom::div_(std::to_string(id)).to_string();
+    res.status = 200;
+    res.headers["Content-Type"] = "text/html";
+}
+
 int main()
 {
     aonyx::http::server server;
     server.router().get("/top", top);
+    server.router().get<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
+                             {
+    res.body = aonyx::dom::div_(std::to_string(id)).to_string();
+    res.status = 200;
+    res.headers["Content-Type"] = "text/html"; });
 
     server.run();
 
