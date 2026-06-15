@@ -13,7 +13,7 @@ namespace aonyx
         {
             return [fn = std::forward<F>(f)](const http::request &req, http::response &res, const util::inner_handler_params_t params)
             {
-                return call_handler(fn, req, res, params);
+                return details::call_handler(fn, req, res, params);
             };
         }
     }

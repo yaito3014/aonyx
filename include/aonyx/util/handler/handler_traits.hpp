@@ -1,6 +1,8 @@
 #pragma once
 
 #include <functional>
+#include <tuple>
+#include <type_traits>
 
 #include <aonyx/http/request.hpp>
 #include <aonyx/http/response.hpp>
@@ -36,5 +38,11 @@ namespace aonyx
 
         template <class F>
         using handler_args_tuple_t = typename handler_traits<F>::args_type_tuple;
+
+        template <class F>
+        struct handler_args_size : std::tuple_size<handler_args_tuple_t<F>> {};
+
+        template <class F>
+        static constexpr std::size_t handler_args_size_v = handler_args_size<F>::value;
     }
 }
