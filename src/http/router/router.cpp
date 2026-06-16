@@ -23,7 +23,13 @@ namespace aonyx
                     return;
                 }
 
-                handler(req, res, params);
+                auto result = handler(req, res, params);
+
+                if(not result){
+                    res.status = 500;
+                    res.body = "500 Internal Server Error";
+                    res.headers["Content-Type"] = "text/html";
+                }
 
                 return;
             }
