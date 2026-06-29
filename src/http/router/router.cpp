@@ -8,30 +8,21 @@ namespace aonyx
     {
         void router::dispatch(const request &req, response &res) const
         {
-            if (req.method == method::get)
+            const route_trie &trie = dispatch_trie(req.method);
+            util::inner_handler_params_t params;
+            auto handler = trie.find(req.path, params);
+
+            if (not handler)
             {
-                util::inner_handler_params_t params;
-                auto handler = trie_.find(req.path, params);
+                res.status = 404;
+                res.body = "404 Not Found";
 
-                if (not handler)
-                {
-                    res.status = 404;
-                    res.body = "404 Not Found";
-
-                    res.headers["Content-Type"] = "text/html";
-
-                    return;
-                }
-
-                handler(req, res, params);
+                res.headers["Content-Type"] = "text/html";
 
                 return;
             }
 
-            res.status = 404;
-            res.body = "404 Not Found";
-
-            res.headers["Content-Type"] = "text/html";
+            handler(req, res, params);
         }
 
         void router::route_trie::add(const std::string_view path, util::inner_handler_t &&handler)
@@ -127,6 +118,19 @@ namespace aonyx
             }
 
             return node->handler;
+        }
+        const router::route_trie &router::dispatch_trie(method method) const
+        {
+            switch (method)
+            {
+            case method::get:
+                return get_trie_;
+                break;
+
+            default:
+                return get_trie_;
+                break;
+            }
         }
     }
 }

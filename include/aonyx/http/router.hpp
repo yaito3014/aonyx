@@ -48,7 +48,12 @@ namespace aonyx
                 std::shared_ptr<node_t> root_;
             };
 
-            route_trie trie_;
+            template <class... Args>
+            void register_method(http::method method, const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler);
+
+            const route_trie &dispatch_trie(method method) const;
+
+            route_trie get_trie_;
         };
     }
 }
