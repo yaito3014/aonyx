@@ -39,12 +39,19 @@ void user_prof(const aonyx::http::request &req, aonyx::http::response &res, int 
 int main()
 {
     aonyx::http::server server;
-    server.router().get("/top", top);
-    server.router().get<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
-                             {
+    auto &router = server.router();
+    router.get("/top", top);
+    router.get<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
+                    {
     res.body = aonyx::dom::div_(std::to_string(id)).to_string();
     res.status = 200;
     res.headers["Content-Type"] = "text/html"; });
+
+    router.post<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
+                     {
+        res.body = R"({"user_id": 100, "user_name": "hoge"})";
+        res.status = 200;
+        res.headers["Content-Type"] = "text/json"; });
 
     server.run();
 

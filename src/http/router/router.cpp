@@ -126,6 +126,15 @@ namespace aonyx
             case method::get:
                 return get_trie_;
                 break;
+            case method::post:
+                return post_trie_;
+                break;
+            case method::put:
+                return put_trie_;
+                break;
+            case method::delete_:
+                return delete_trie_;
+                break;
 
             default:
                 return get_trie_;

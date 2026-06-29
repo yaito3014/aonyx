@@ -13,6 +13,21 @@ namespace aonyx
         {
             register_method<Args...>(method::get, path, std::forward<util::handler_t<std::type_identity_t<Args>...>>(handler));
         }
+        template <class... Args>
+        void router::post(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler)
+        {
+            register_method<Args...>(method::post, path, std::forward<util::handler_t<std::type_identity_t<Args>...>>(handler));
+        }
+        template <class... Args>
+        void router::put(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler)
+        {
+            register_method<Args...>(method::put, path, std::forward<util::handler_t<std::type_identity_t<Args>...>>(handler));
+        }
+        template <class... Args>
+        void router::delete_(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler)
+        {
+            register_method<Args...>(method::delete_, path, std::forward<util::handler_t<std::type_identity_t<Args>...>>(handler));
+        }
 
         template <class... Args>
         void router::register_method(http::method method, const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler)

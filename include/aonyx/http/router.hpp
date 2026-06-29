@@ -21,6 +21,12 @@ namespace aonyx
         public:
             template <class... Args>
             void get(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler);
+            template <class... Args>
+            void post(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler);
+            template <class... Args>
+            void put(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler);
+            template <class... Args>
+            void delete_(const std::string_view path, util::handler_t<std::type_identity_t<Args>...> &&handler);
 
             void dispatch(const request &req, response &res) const;
 
@@ -54,6 +60,9 @@ namespace aonyx
             const route_trie &dispatch_trie(method method) const;
 
             route_trie get_trie_;
+            route_trie post_trie_;
+            route_trie put_trie_;
+            route_trie delete_trie_;
         };
     }
 }
