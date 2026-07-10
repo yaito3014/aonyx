@@ -16,14 +16,17 @@ add_library(aonyx
     src/dom/html_node/html_node.cpp
     src/dom/html_tag/html_tag.cpp
 
-    src/http/helper/convert.cpp
+    src/http/server/helper/convert.cpp
 
-    src/http/router/router.cpp
+    src/http/server/router/router.cpp
 
-    src/http/server/server.cpp
-    src/http/server/server_impl.cpp
+    src/http/client/client/client.cpp
+    src/http/client/client/client_impl.cpp
 
-    src/http/session/session.cpp
+    src/http/server/server/server.cpp
+    src/http/server/server/server_impl.cpp
+
+    src/http/server/session/session.cpp
 )
 
 target_include_directories(aonyx

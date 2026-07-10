@@ -1,8 +1,8 @@
 #pragma once
 
-#include "aonyx/http/server.hpp"
+#include "aonyx/http/server/server.hpp"
 #include <boost/asio/ip/tcp.hpp>
-#include <aonyx/http/router.hpp>
+#include <aonyx/http/server/router.hpp>
 
 namespace aonyx::http
 {
