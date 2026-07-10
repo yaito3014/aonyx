@@ -49,7 +49,10 @@ int main()
 
     router.post<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
                      {
-        res.body = R"({"user_id": 100, "user_name": "hoge"})";
+        aonyx::json body;
+        body["user_id"] = 100;
+        body["user_name"] = "hoge";
+        res.body = body.dump();
         res.status = 200;
         res.headers["Content-Type"] = "text/json"; });
 

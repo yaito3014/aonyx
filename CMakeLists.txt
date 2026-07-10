@@ -29,6 +29,7 @@ add_library(aonyx
 target_include_directories(aonyx
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/thirdparty
 
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
