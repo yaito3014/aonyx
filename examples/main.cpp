@@ -1,5 +1,6 @@
 #include <aonyx.hpp>
 #include <iostream>
+#include <thread>
 
 using namespace aonyx::dom;
 
@@ -14,7 +15,7 @@ html_node hoge()
         div_("c"));
 }
 
-void top(const aonyx::http::request &req, aonyx::http::response &res)
+void top(AONYX_PARAM(req, res))
 {
     auto node =
         html(attribute{"lang", "en"})(
@@ -29,7 +30,7 @@ void top(const aonyx::http::request &req, aonyx::http::response &res)
     res.headers["Content-Type"] = "text/html";
 }
 
-void user_prof(const aonyx::http::request &req, aonyx::http::response &res, int id)
+void user_prof(AONYX_PARAM(req, res), int id)
 {
     res.body = aonyx::dom::div_(std::to_string(id)).to_string();
     res.status = 200;
@@ -41,13 +42,13 @@ int main()
     aonyx::http::server server;
     auto &router = server.router();
     router.get("/top", top);
-    router.get<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
+    router.get<int>("/users/{}", [](AONYX_PARAM(req, res), int id)
                     {
     res.body = aonyx::dom::div_(std::to_string(id)).to_string();
     res.status = 200;
     res.headers["Content-Type"] = "text/html"; });
 
-    router.post<int>("/users/{}", [](const aonyx::http::request &req, aonyx::http::response &res, int id)
+    router.post<int>("/users/{}", [](AONYX_PARAM(req, res), int id)
                      {
         aonyx::json body;
         body["user_id"] = 100;
@@ -55,6 +56,13 @@ int main()
         res.body = body.dump();
         res.status = 200;
         res.headers["Content-Type"] = "text/json"; });
+
+    router.get("/heavy", [](AONYX_PARAM(req, res))
+               { 
+                std::this_thread::sleep_for(std::chrono::minutes(1));
+                res.body = aonyx::dom::div_("heavy").to_string();
+    res.status = 200;
+    res.headers["Content-Type"] = "text/html"; });
 
     server.run();
 
