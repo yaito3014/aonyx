@@ -10,7 +10,11 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(Boost CONFIG REQUIRED COMPONENTS system)
+find_package(Boost CONFIG REQUIRED COMPONENTS
+    system
+    url
+)
+find_package(OpenSSL REQUIRED)
 
 add_library(aonyx
     src/dom/html_node/html_node.cpp
@@ -21,7 +25,6 @@ add_library(aonyx
     src/http/server/router/router.cpp
 
     src/http/client/client/client.cpp
-    src/http/client/client/client_impl.cpp
 
     src/http/server/server/server.cpp
     src/http/server/server/server_impl.cpp
@@ -41,6 +44,9 @@ target_include_directories(aonyx
 target_link_libraries(aonyx
     PRIVATE
         Boost::system
+        Boost::url
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )
 
 target_compile_features(aonyx
