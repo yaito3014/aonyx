@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
 
 #include "method.hpp"
+#include "headers.hpp"
 
 namespace aonyx
 {
@@ -15,7 +15,7 @@ namespace aonyx
             std::string path;
             std::string body;
 
-            std::unordered_map<std::string, std::string> headers;
+            headers headers;
         };
     }
 }
