@@ -78,10 +78,44 @@ namespace aonyx
                     return {host, port, target};
                 }
             }
-            aonyx::http::response fetch(const std::string_view url)
+
+            aonyx::http::response get(
+                const std::string_view url,
+                const std::string_view body,
+                const std::unordered_map<std::string, std::string> headers)
+            {
+                return fetch(url, aonyx::http::method::get, body, headers);
+            }
+            aonyx::http::response post(
+                const std::string_view url,
+                const std::string_view body,
+                const std::unordered_map<std::string, std::string> headers)
+            {
+                return fetch(url, aonyx::http::method::post, body, headers);
+            }
+            aonyx::http::response put(
+                const std::string_view url,
+                const std::string_view body,
+                const std::unordered_map<std::string, std::string> headers)
+            {
+                return fetch(url, aonyx::http::method::put, body, headers);
+            }
+            aonyx::http::response delete_(
+                const std::string_view url,
+                const std::string_view body,
+                const std::unordered_map<std::string, std::string> headers)
+            {
+                return fetch(url, aonyx::http::method::delete_, body, headers);
+            }
+
+            aonyx::http::response fetch(
+                const std::string_view url,
+                const aonyx::http::method method,
+                const std::string_view body,
+                const std::unordered_map<std::string, std::string> headers)
             {
                 const auto [host, port, target] = helper::parse_url(url);
-                return fetch(host, port, target);
+                return fetch(host, port, target, method, body, headers);
             }
             aonyx::http::response fetch(
                 const std::string_view host,
