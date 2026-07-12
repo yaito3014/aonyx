@@ -19,31 +19,31 @@ namespace aonyx
                 const std::string_view url,
                 const aonyx::http::method method,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
             aonyx::http::response fetch(
                 const std::string_view host,
                 const std::string_view port,
                 const std::string_view target,
                 const aonyx::http::method method = aonyx::http::method::get,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
 
             aonyx::http::response get(
                 const std::string_view url,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
             aonyx::http::response post(
                 const std::string_view url,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
             aonyx::http::response put(
                 const std::string_view url,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
             aonyx::http::response delete_(
                 const std::string_view url,
                 const std::string_view body = "",
-                const headers headers = {});
+                const http::headers headers = {});
         }
     }
 }

@@ -14,7 +14,7 @@ namespace aonyx
 
             std::string body;
 
-            headers headers;
+            http::headers headers;
         };
     }
 }
