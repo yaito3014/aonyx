@@ -55,7 +55,7 @@ target_compile_features(aonyx
 )
 
 add_executable(example
-    examples/main.cpp
+    examples/top.cpp
 )
 
 target_link_libraries(example

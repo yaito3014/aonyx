@@ -3,6 +3,8 @@
 #include <string>
 #include <string_view>
 
+#include <aonyx/css/rule.hpp>
+
 namespace aonyx
 {
     namespace dom
@@ -28,6 +30,10 @@ namespace aonyx
             inline attribute style(const std::string_view value)
             {
                 return attribute{"style", std::string(value)};
+            }
+            inline attribute style(const css::style style)
+            {
+                return attribute{"style", style.to_string()};
             }
 
             inline attribute href(const std::string_view value)
