@@ -5,7 +5,7 @@
 #include <vector>
 #include <type_traits>
 #include <aonyx/util/concepts.hpp>
-#include <aonyx/dom/attribute.hpp>
+#include <aonyx/dom/attrs/attribute.hpp>
 
 namespace aonyx
 {
