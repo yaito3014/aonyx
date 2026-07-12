@@ -13,6 +13,16 @@ namespace aonyx
 
         std::string html_node::to_string() const
         {
+            if (this->tag_name.empty())
+            {
+                std::string result = "";
+                for (const auto &child : children)
+                {
+                    result += child.to_string();
+                }
+
+                return result;
+            }
             std::string result = "<" + tag_name;
             for (const auto &attr : attributes)
             {
