@@ -7,3 +7,10 @@ aonyx is a brand new web framework for C++ !!
 ## requires
 C++23
 boost
+
+## Features
+- **Routing**: Routing paths and binding parameters.
+- **JSON**: JSON support.
+- **HTML DOM**: HTML DOM support.
+- **Concurrency**: Multi-threaded server. 
+- **Client**: client request.
