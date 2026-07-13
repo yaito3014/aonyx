@@ -11,7 +11,7 @@ html_node hoge()
 
     return div_(
         div_("a"),
-        div_("b"),
+        div_("<p>hoge!!</p>"),
         div_("c"));
 }
 

@@ -1,5 +1,7 @@
 #include "aonyx/dom.hpp"
 
+#include <aonyx/util/escape.hpp>
+
 namespace aonyx
 {
     namespace dom
@@ -7,7 +9,7 @@ namespace aonyx
 
         html_node &html_node::operator()(const std::string_view text_content)
         {
-            this->text_content = std::move(text_content);
+            this->text_content = aonyx::util::escape_html(text_content);
             return *this;
         }
 
