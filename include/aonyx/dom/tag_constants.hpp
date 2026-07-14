@@ -151,5 +151,7 @@ namespace aonyx
 
         // Web Components
         inline constexpr html_tag slot_element{tags::SLOT_ELEMENT};
+
+        inline constexpr html_tag fragment{tags::NONE};
     } // namespace dom
 } // namespace aonyx

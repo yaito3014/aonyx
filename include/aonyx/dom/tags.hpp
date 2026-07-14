@@ -146,6 +146,7 @@ namespace aonyx
             // Web Components
             SLOT_ELEMENT,
 
+            NONE,
             UNKNOWN
         };
 
@@ -635,6 +636,11 @@ namespace aonyx
                 return tags::SUMMARY;
             if (tag == "dialog")
                 return tags::DIALOG;
+
+            if (tag == "")
+            {
+                return tags::NONE;
+            }
 
             return tags::UNKNOWN;
         }

@@ -5,7 +5,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/http/string_body.hpp>
-#include <aonyx/http/router.hpp>
+#include <aonyx/http/server/router.hpp>
 
 class session : public std::enable_shared_from_this<session>
 {

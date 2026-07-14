@@ -12,6 +12,8 @@
 #include <aonyx/http/response.hpp>
 #include <aonyx/util/handler/handler.hpp>
 
+#define AONYX_PARAM(req, res) const aonyx::http::request& req, aonyx::http::response& res
+
 namespace aonyx
 {
     namespace http
